@@ -3,11 +3,14 @@ from confing import dp
 import logging
 from handleers import client, colback, extra, admin, fsmAdminMentor
 from database.bot_db import sql_create
+from database import bot_db
 
 fsmAdminMentor.register_handlers_fsm_anketa(dp)
 client.regiter_handler_client(dp)
 colback.register_handler_callback(dp)
 admin.register_handler_admin(dp)
+bot_db.register_handlers_bot_db(dp)
+
 extra.register_handler_extra(dp)
 
 
