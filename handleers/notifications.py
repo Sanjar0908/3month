@@ -15,7 +15,7 @@ async def go_to_sleep():
 
 
 async def scheduler():
-    aioschedule.every().day.at("12:00").do(go_to_sleep)
+    aioschedule.every().day.at("17:02").do(go_to_sleep)
 
     while True:
         await aioschedule.run_pending()

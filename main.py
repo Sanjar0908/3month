@@ -15,7 +15,7 @@ client.regiter_handler_client(dp)
 colback.register_handler_callback(dp)
 admin.register_handler_admin(dp)
 bot_db.register_handlers_bot_db(dp)
-
+notifications.register_handlers_notification(dp)
 extra.register_handler_extra(dp)
 
 
