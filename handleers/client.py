@@ -1,13 +1,16 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram import Bot, Dispatcher, types
 from confing import bot, dp
+from parser.news import ParsesNews
 
-#@dp.message_handler(commands=['start'])
+
+# @dp.message_handler(commands=['start'])
 async def start_handler(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text=f"he i'm bot {message.from_user.first_name}")
 
-#@dp.message_handler(commands=['quiz'])
+
+# @dp.message_handler(commands=['quiz'])
 async def quiz_1(message: types.Message):
     markup = InlineKeyboardMarkup()
     button_call_1 = InlineKeyboardButton("NEXT 1", callback_data="button_call_1")
@@ -35,12 +38,23 @@ async def quiz_1(message: types.Message):
     )
 
 
-#@dp.message_handler(commands=['mem'])
+# @dp.message_handler(commands=['mem'])
 async def mem_handler(message: types.Message):
     photo = open('mems/mem1.jfif', 'rb')
     await bot.send_photo(message.from_user.id, photo)
 
+
+async def parser_news(message: types.Message):
+    news = ParsesNews.parser()
+    for i in news:
+        await message.answer(f"{i['link']}\n"
+                             f"{i['title']}\n"
+                             f"{i['caption']}\n"
+                             f"{i['date']}")
+
+
 def regiter_handler_client(dp: Dispatcher):
-    dp.register_message_handler(start_handler,commands=['start'])
-    dp.register_message_handler(quiz_1,commands=['quiz'])
-    dp.register_message_handler(mem_handler,commands=['mem'])
+    dp.register_message_handler(start_handler, commands=['start'])
+    dp.register_message_handler(quiz_1, commands=['quiz'])
+    dp.register_message_handler(mem_handler, commands=['mem'])
+    dp.register_message_handler(parser_news, commands=['news'])
